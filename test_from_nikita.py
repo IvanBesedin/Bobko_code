@@ -1,3 +1,3 @@
 def hello():
-    return "hello Nikita :)"
+    return "hello Nikita :)))"
 print(hello())
