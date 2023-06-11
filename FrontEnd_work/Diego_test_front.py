@@ -8,23 +8,22 @@ def codify():
 def data_t():
     sentence = t.get(1.0,END)
     data = list(sentence)
-    count=0
+    count = 0
     for record in data:
         table.insert(parent='', index=END, iid=count, text='', values=(record[0]))
-        count+=1
-    table.grid(row=	10, column=0)
+        count += 1
+    table.grid(row=10, column=0)
 
 
 win = Tk()
 win.title("Кодировщик по методу Шенона фано")
-#win.iconbitmap()
-#photo = PhotoImage(file=)
+# win.iconbitmap()
+# photo = PhotoImage(file=)
 
 t = Text(win, width=20, height=6)
 t.grid(column=0, row=1, sticky='we')
 t_out = Text(win, width=20, height=6)
 t_out.grid(column=3, row=1, sticky='we')
-
 
 btn1 = Button(win, text='Закодировать', command=codify).grid(row=1, column=1)
 btn2 = Button(win, text='Таблица', command=data_t).grid(row=2, column=1)
@@ -41,6 +40,5 @@ win.grid_columnconfigure(0, minsize=200)
 win.grid_columnconfigure(1, minsize=100)
 win.grid_columnconfigure(2, minsize=100)
 win.grid_columnconfigure(3, minsize=200)
-
 
 win.mainloop()
