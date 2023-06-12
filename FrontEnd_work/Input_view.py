@@ -2,8 +2,6 @@ from tkinter import *
 from tkinter.scrolledtext import ScrolledText
 from tkinter.ttk import Notebook, Treeview
 
-# from work_eugeny import co
-
 compress = None
 
 
@@ -70,7 +68,6 @@ def compression():
 
 dialog_button_tab1 = Button(tab1, text='Закодировать', font=('Arial', 18), command=compression)  # создаем кнопку
 dialog_button_tab1.grid(row=2, column=3)
-
 
 table_tab1 = Treeview(tab1, columns=('first', 'second'), show='headings')
 table_tab1.heading('first', text='Буквы')
