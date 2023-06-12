@@ -64,7 +64,7 @@ dialog_button_tab1 = Button(tab1, text='Закодировать', font=('Arial'
 dialog_button_tab1.grid(row=2, column=3)
 
 
-def data_tab1():
+def data_table_tab1():
     sentence = input_text_tab1.get(1.0, END)
     data = list(sentence)
     count = 0
@@ -80,17 +80,18 @@ table_tab1.heading('first', text='Буквы')
 table_tab1.heading('second', text='Символы')
 table_tab1.grid(row=10, column=3)
 
-btn_table_tab1 = Button(tab1, text='Отобразить в таблице', command=data_tab1, font=('Arial', 18))
+btn_table_tab1 = Button(tab1, text='Отобразить в таблице', command=data_table_tab1, font=('Arial', 18))
 btn_table_tab1.grid(row=10, column=1)
+
 # создаем все элементы во второй вкладке
-dialog_tab2 = Label(tab2, text=a, font=('Arial', 18))  # Это вывод текста
+dialog_tab2 = Label(tab2, text=a, font=('Arial', 18))  # Это вывод текста для пользователя
 dialog_tab2.grid(row=1, column=1)
 
 input_text_tab2 = ScrolledText(tab2, width=40, height=4, fg='blue', font=('Arial', 18))
 input_text_tab2.grid(row=2, column=1)
 
 out_text_tab2 = ScrolledText(tab2, font=('Arial', 18), width=40, height=4)
-out_text_tab2.grid(row=2, column=4)
+out_text_tab2.grid(row=2, column=5)
 out_text_tab2.configure(state='disabled')
 
 
@@ -104,32 +105,51 @@ def decompression():
     out_text_tab2.configure(state='normal')
     out_text_tab2.delete('1.0', END)
     decompress = input_text_tab2.get('1.0', END)
+
     out_text_tab2.insert('1.0', coco(decompress))
     out_text_tab2.configure(state='disabled')
 
 
+# def spin_entry():
+#     try:
+#         flag = 0
+#         val = int(spin_tab2.get())
+#         for i in range(val):
+#             k = i
+#             ent = Entry(tab2, font=('Arial', 11))
+#             ent.grid(row=4 + k, column=2 + flag)
+#             ent_2 = Entry(tab2, font=('Arial', 11))
+#             ent_2.grid(row=4+k, column=3)
+#     except TypeError:
+#         print('error')
+
+
 dialog_button_tab2 = Button(tab2, text='Раскодировать', font=('Arial', 18), command=decompression)
-dialog_button_tab2.grid(row=2, column=3)
+dialog_button_tab2.grid(row=3, column=1)
 
 
-def data_tab2():
-    sentence = input_text_tab2.get(1.0, END)
-    data = list(sentence)
-    count = 0
-    for record in table_tab2.get_children():
-        table_tab2.delete(record)
-    for record in data:
-        table_tab2.insert(parent='', index=END, text='', values=(record[0]))
-        count += 1
+# дальше идет не совсем мой код
+
+def mousewheel(evt):
+    text_widget_1.yview_scroll(int(-1 * (evt.delta / 120)), 'units')  # For windows
+    text_widget_2.yview_scroll(int(-1 * (evt.delta / 120)), 'units')  # For windows
 
 
-table_tab2 = Treeview(tab2, columns=('first', 'second'), show='headings')
-table_tab2.heading('first', text='Буквы')
-table_tab2.heading('second', text='Символы')
-table_tab2.grid(row=10, column=3)
+def yview(*args):
+    text_widget_1.yview(*args)
+    text_widget_2.yview(*args)
 
-btn_table_tab2 = Button(tab2, text='Отобразить в таблице', command=data_tab2, font=('Arial', 18))
-btn_table_tab2.grid(row=10, column=1)
+
+scrollbar = Scrollbar(tab2, orient=VERTICAL, command=yview)
+scrollbar.grid(row=4, column=4, sticky=N + S)
+
+text_widget_1 = Text(tab2, width=10, height=20, yscrollcommand=scrollbar.set, font="consolas 14")
+text_widget_1.bind_class("Text", '<MouseWheel>', mousewheel)
+text_widget_1.grid(row=4, column=2)
+
+text_widget_2 = Text(tab2, width=10, height=20, yscrollcommand=scrollbar.set, font="consolas 14")
+text_widget_2.bind_class("Text", '<MouseWheel>', mousewheel)
+text_widget_2.grid(row=4, column=3, padx=2)
 
 notebook.pack(expand=1, fill=BOTH, side=TOP)
 main_frame.pack(side=LEFT, padx=25, ipady=340)
