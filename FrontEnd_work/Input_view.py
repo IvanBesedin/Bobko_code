@@ -2,8 +2,6 @@ from tkinter import *
 from tkinter.scrolledtext import ScrolledText
 from tkinter.ttk import Notebook, Treeview
 
-# from work_eugeny import co
-
 compress = None
 
 
@@ -58,13 +56,6 @@ def compression():
     compress = input_text_tab1.get('1.0', END)
     out_text_tab1.insert('1.0', co(compress))
     out_text_tab1.configure(state='disabled')
-
-
-dialog_button_tab1 = Button(tab1, text='Закодировать', font=('Arial', 18), command=compression)  # создаем кнопку
-dialog_button_tab1.grid(row=2, column=3)
-
-
-def data_table_tab1():
     sentence = input_text_tab1.get(1.0, END)
     data = list(sentence)
     count = 0
@@ -75,13 +66,13 @@ def data_table_tab1():
         count += 1
 
 
+dialog_button_tab1 = Button(tab1, text='Закодировать', font=('Arial', 18), command=compression)  # создаем кнопку
+dialog_button_tab1.grid(row=2, column=3)
+
 table_tab1 = Treeview(tab1, columns=('first', 'second'), show='headings')
 table_tab1.heading('first', text='Буквы')
 table_tab1.heading('second', text='Символы')
 table_tab1.grid(row=10, column=3)
-
-btn_table_tab1 = Button(tab1, text='Отобразить в таблице', command=data_table_tab1, font=('Arial', 18))
-btn_table_tab1.grid(row=10, column=1)
 
 # создаем все элементы во второй вкладке
 dialog_tab2 = Label(tab2, text=a, font=('Arial', 18))  # Это вывод текста для пользователя
@@ -99,29 +90,22 @@ def decompression():
     '''
     аналог функции compression()
     но менять нужно функцию сосо(), на функцию декодирования
+    добавление: переменные de_word и de_digital содержат тблицу значений в виде списка
+    как их ввел пользователь
     :return:
     '''
-    global decompress
+    global decompress, de_word, de_digital
     out_text_tab2.configure(state='normal')
     out_text_tab2.delete('1.0', END)
     decompress = input_text_tab2.get('1.0', END)
 
+    de_word = (text_widget_1.get(1.0, END)).split()
+    de_digital = text_widget_2.get(1.0, END).split()
+
     out_text_tab2.insert('1.0', coco(decompress))
     out_text_tab2.configure(state='disabled')
-
-
-# def spin_entry():
-#     try:
-#         flag = 0
-#         val = int(spin_tab2.get())
-#         for i in range(val):
-#             k = i
-#             ent = Entry(tab2, font=('Arial', 11))
-#             ent.grid(row=4 + k, column=2 + flag)
-#             ent_2 = Entry(tab2, font=('Arial', 11))
-#             ent_2.grid(row=4+k, column=3)
-#     except TypeError:
-#         print('error')
+    # print(de_word)
+    # print(de_digital)
 
 
 dialog_button_tab2 = Button(tab2, text='Раскодировать', font=('Arial', 18), command=decompression)
@@ -143,14 +127,14 @@ def yview(*args):
 scrollbar = Scrollbar(tab2, orient=VERTICAL, command=yview)
 scrollbar.grid(row=4, column=4, sticky=N + S)
 
-text_widget_1 = Text(tab2, width=10, height=20, yscrollcommand=scrollbar.set, font="consolas 14")
+text_widget_1 = Text(tab2, width=10, height=20, yscrollcommand=scrollbar.set, font=('Arial', 11))
 text_widget_1.bind_class("Text", '<MouseWheel>', mousewheel)
 text_widget_1.grid(row=4, column=2)
 
-text_widget_2 = Text(tab2, width=10, height=20, yscrollcommand=scrollbar.set, font="consolas 14")
+text_widget_2 = Text(tab2, width=10, height=20, yscrollcommand=scrollbar.set, font=('Arial', 11))
 text_widget_2.bind_class("Text", '<MouseWheel>', mousewheel)
 text_widget_2.grid(row=4, column=3, padx=2)
-
+# вернулись к моему
 notebook.pack(expand=1, fill=BOTH, side=TOP)
 main_frame.pack(side=LEFT, padx=25, ipady=340)
 window.mainloop()
