@@ -36,7 +36,7 @@ input_text_tab1.grid(row=2, column=1)
 
 out_text_tab1 = ScrolledText(tab1, font=('Arial', 18), width=40,
                              height=4)  # в первой вкладке пользователь получит результат в этом окне
-out_text_tab1.grid(row=2, column=4)
+out_text_tab1.grid(row=2, column=6)
 out_text_tab1.configure(state='disabled')  # отключаем, чтобы невозможно было ей пользоваться
 
 
@@ -80,9 +80,11 @@ dialog_tab2.grid(row=1, column=1)
 
 input_text_tab2 = ScrolledText(tab2, width=40, height=4, fg='blue', font=('Arial', 18))
 input_text_tab2.grid(row=2, column=1)
-
+hollow_tex = Label(tab2, text='', font=('Arial', 18), fg='white')
+hollow_tex.grid(row=2, column=4)
 out_text_tab2 = ScrolledText(tab2, font=('Arial', 18), width=40, height=4)
-out_text_tab2.grid(row=2, column=5)
+# out_text_tab2.grid(row=2, column=5)
+out_text_tab2.place(x=943, y=33)  # разместил второй вывод по координатам
 out_text_tab2.configure(state='disabled')
 
 
@@ -109,7 +111,8 @@ def decompression():
 
 
 dialog_button_tab2 = Button(tab2, text='Раскодировать', font=('Arial', 18), command=decompression)
-dialog_button_tab2.grid(row=3, column=1)
+# dialog_button_tab2.grid(row=3, column=1)
+dialog_button_tab2.place(x=650, y=65)
 
 
 # дальше идет не совсем мой код
@@ -124,17 +127,22 @@ def yview(*args):
     text_widget_2.yview(*args)
 
 
-scrollbar = Scrollbar(tab2, orient=VERTICAL, command=yview)
-scrollbar.grid(row=4, column=4, sticky=N + S)
+yg = 200
 
+scrollbar = Scrollbar(tab2, orient=VERTICAL, command=yview)
+# scrollbar.grid(row=4, column=4, sticky=N + S)
+scrollbar.place(x=850, y=yg, height=340)  # размещение строки прокрутки
+# out_text_tab2.place(x=943, y=33)
 text_widget_1 = Text(tab2, width=10, height=20, yscrollcommand=scrollbar.set, font=('Arial', 11))
 text_widget_1.bind_class("Text", '<MouseWheel>', mousewheel)
-text_widget_1.grid(row=4, column=2)
-
+# text_widget_1.grid(row=4, column=2)
+text_widget_1.place(x=650, y=yg)  # левый текст
 text_widget_2 = Text(tab2, width=10, height=20, yscrollcommand=scrollbar.set, font=('Arial', 11))
 text_widget_2.bind_class("Text", '<MouseWheel>', mousewheel)
-text_widget_2.grid(row=4, column=3, padx=2)
+# text_widget_2.grid(row=4, column=3, padx=2)
+text_widget_2.place(x=750, y=yg)  # размещение правого текста
 # вернулись к моему
+
 notebook.pack(expand=1, fill=BOTH, side=TOP)
 main_frame.pack(side=LEFT, padx=25, ipady=340)
 window.mainloop()
