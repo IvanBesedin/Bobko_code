@@ -1,5 +1,5 @@
 from shennonFanoCompression import shennon_fano_compression
-from text_read import read
+
 
 result = shennon_fano_compression()
 x = result.dictionary
@@ -18,10 +18,7 @@ def mayor(lista): # Definir el valor maximo.
         if x > max:
             max = x
     return max
-print(read())
-print(result.dictionary)
-print("Longitudes:", lengths)  # Imprime la lista de longitudes
-print("самый длинный-это", mayor(lengths))
+
 
 
 
