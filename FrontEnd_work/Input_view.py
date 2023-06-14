@@ -4,6 +4,9 @@ from tkinter.ttk import Notebook, Treeview
 from tkinter.messagebox import showinfo
 
 compress = None
+decompress = None
+de_word = None
+de_digital = None
 
 
 def co(a):  # это тестовые функции, нужны, чтобы определить какую функцию куда импортировать
@@ -26,7 +29,8 @@ notebook = Notebook(main_frame)
 tab1 = Frame(notebook)  # это первая вкладка для закодирования
 tab2 = Frame(notebook)  # это вторая вкладка для декодирования
 
-quest_mark = PhotoImage(file=r'30_pixels.png')
+quest_mark = PhotoImage(file=r"C:\Users\Zero\PycharmProjects\Bobko_code\buttons\50_pixels.png")  # картинка вопроса
+
 notebook.add(tab1, text='Кодирование')
 notebook.add(tab2, text='Декодирование')
 dialog_tab1 = Label(tab1, text=b, font=('Arial', 18))  # диалоговый текст обращения к пользователю в первой вкладке
@@ -85,7 +89,8 @@ def open_help():
 
 xge = 1170
 yge = 300
-help_button_tab1 = Button(tab1, text="Справка", command=open_help, font=('Arial', 18))
+
+help_button_tab1 = Button(tab1, image=quest_mark, command=open_help, font=('Arial', 18))
 # help_button_tab1.place(x=xge, y=yge)
 help_button_tab1.grid(row=1, column=1)
 
@@ -135,6 +140,7 @@ dialog_button_tab2.place(x=650, y=65 + plus)
 help_button_tab2 = Button(tab2, text="Справка", command=open_help, font=('Arial', 18))
 # help_button_tab2.place(x=xge, y=yge)  # перемещение кнопки
 help_button_tab2.grid(row=1, column=1)
+
 
 # дальше идет не совсем мой код
 
