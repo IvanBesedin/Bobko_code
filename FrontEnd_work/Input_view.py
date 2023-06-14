@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter.scrolledtext import ScrolledText
 from tkinter.ttk import Notebook, Treeview
+from tkinter.messagebox import showinfo
 
 compress = None
 
@@ -25,18 +26,19 @@ notebook = Notebook(main_frame)
 tab1 = Frame(notebook)  # это первая вкладка для закодирования
 tab2 = Frame(notebook)  # это вторая вкладка для декодирования
 
+quest_mark = PhotoImage(file=r'30_pixels.png')
 notebook.add(tab1, text='Кодирование')
 notebook.add(tab2, text='Декодирование')
 dialog_tab1 = Label(tab1, text=b, font=('Arial', 18))  # диалоговый текст обращения к пользователю в первой вкладке
-dialog_tab1.grid(row=1, column=1)
+dialog_tab1.grid(row=2, column=1)
 
 input_text_tab1 = ScrolledText(tab1, width=40, height=4, fg='blue',
                                font=('Arial', 18))  # пользователь в первой вкладке вводит сюда свой текст
-input_text_tab1.grid(row=2, column=1)
+input_text_tab1.grid(row=3, column=1)
 
 out_text_tab1 = ScrolledText(tab1, font=('Arial', 18), width=40,
                              height=4)  # в первой вкладке пользователь получит результат в этом окне
-out_text_tab1.grid(row=2, column=6)
+out_text_tab1.grid(row=3, column=6)
 out_text_tab1.configure(state='disabled')  # отключаем, чтобы невозможно было ей пользоваться
 
 
@@ -67,7 +69,25 @@ def compression():
 
 
 dialog_button_tab1 = Button(tab1, text='Закодировать', font=('Arial', 18), command=compression)  # создаем кнопку
-dialog_button_tab1.grid(row=2, column=3)
+dialog_button_tab1.grid(row=3, column=3)
+
+
+def open_help():
+    text = "Метод Шеннона-Фано – это алгоритм сжатия данных, который основывается " \
+           "на распределении частоты встречаемости символов в сообщении. Алгоритм Шеннона-Фано разделяет " \
+           "символы на две части, соответственно их частоте встречаемости, и далее рекурсивно продолжает " \
+           "деление на подгруппы до тех пор, пока не будет получен код для каждого символа в сообщении. " \
+           "Код Шеннона-Фано получается из частоты встречаемости символов, которая используется для " \
+           "определения места символов в двоичном дереве. В конечном итоге, более часто встречающиеся " \
+           "символы имеют более короткие коды, что является причиной сжатия сообщения."
+    showinfo(title="Справка", message=text)
+
+
+xge = 1170
+yge = 300
+help_button_tab1 = Button(tab1, text="Справка", command=open_help, font=('Arial', 18))
+# help_button_tab1.place(x=xge, y=yge)
+help_button_tab1.grid(row=1, column=1)
 
 table_tab1 = Treeview(tab1, columns=('first', 'second'), show='headings')
 table_tab1.heading('first', text='Буквы')
@@ -76,14 +96,14 @@ table_tab1.grid(row=10, column=3)
 
 # создаем все элементы во второй вкладке
 dialog_tab2 = Label(tab2, text=a, font=('Arial', 18))  # Это вывод текста для пользователя
-dialog_tab2.grid(row=1, column=1)
+dialog_tab2.grid(row=2, column=1)
 
 input_text_tab2 = ScrolledText(tab2, width=40, height=4, fg='blue', font=('Arial', 18))
-input_text_tab2.grid(row=2, column=1)
-hollow_tex = Label(tab2, text='', font=('Arial', 18), fg='white')
-hollow_tex.grid(row=2, column=4)
+input_text_tab2.grid(row=3, column=1)
+
+plus = 47
 out_text_tab2 = ScrolledText(tab2, font=('Arial', 18), width=40, height=4)
-out_text_tab2.place(x=943, y=33)  # разместил второй вывод по координатам
+out_text_tab2.place(x=943, y=33 + plus)  # разместил второй вывод по координатам
 out_text_tab2.configure(state='disabled')
 
 
@@ -110,8 +130,11 @@ def decompression():
 
 
 dialog_button_tab2 = Button(tab2, text='Раскодировать', font=('Arial', 18), command=decompression)
-dialog_button_tab2.place(x=650, y=65)
+dialog_button_tab2.place(x=650, y=65 + plus)
 
+help_button_tab2 = Button(tab2, text="Справка", command=open_help, font=('Arial', 18))
+# help_button_tab2.place(x=xge, y=yge)  # перемещение кнопки
+help_button_tab2.grid(row=1, column=1)
 
 # дальше идет не совсем мой код
 
@@ -125,7 +148,7 @@ def yview(*args):
     text_widget_2.yview(*args)
 
 
-yg = 200
+yg = 200 + plus
 
 scrollbar = Scrollbar(tab2, orient=VERTICAL, command=yview)
 scrollbar.place(x=850, y=yg, height=340)  # размещение строки прокрутки
