@@ -1,13 +1,13 @@
 from shennonFanoCompression import shennon_fano_compression
-from shennonFanoAlgoritm import Compressed
+def lengths(message):
+    result = shennon_fano_compression(message)
+    x = result.dictionary
+    lengths = []  # List to save lenghts
 
-result = Compressed()
-x = result.dictionary
-lengths = []  # List to save lenghts
-
-for key in x:
-    length = len(key)  # Find the key lenght
-    lengths.append(length)  # Add the lenght to the list
+    for key in x:
+        length = len(key)  # Find the key lenght
+        lengths.append(length)  # Add the lenght to the list
+    return lengths
 
 
 
@@ -18,3 +18,4 @@ def mayor(lista): # Determine max value
         if x > max:
             max = x
     return max
+

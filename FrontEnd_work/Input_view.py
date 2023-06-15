@@ -17,8 +17,8 @@ def co(text):  # это тестовые функции, нужны, чтобы 
     return codded
 
 
-def coco(code, code_number, code_symbol):
-    input_dictionary = dict(zip(code_number, code_symbol))
+def coco(code, code_numbers, code_symbols):
+    input_dictionary = dict(zip(code_numbers, code_symbols))
     uncodded = shd.shennon_fano_decompression(code, input_dictionary)
     return uncodded
 
@@ -132,8 +132,6 @@ def decompression():
     out_text_tab2.insert('1.0', coco(decompress, de_digital, de_word))
     out_text_tab2.configure(state='disabled')
 
-    # print(de_word)
-    # print(de_digital)
 
 
 dialog_button_tab2 = Button(tab2, text='Раскодировать', font=('Arial', 18), command=decompression)
