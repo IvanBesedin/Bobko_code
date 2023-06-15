@@ -3,6 +3,8 @@ from tkinter.scrolledtext import ScrolledText
 from tkinter.ttk import Notebook, Treeview
 from tkinter.messagebox import showinfo
 import os
+import shennonFanoCompression as shc
+import shennonFanoDecompression as shd
 
 compress = None
 decompress = None
@@ -10,12 +12,15 @@ de_word = None
 de_digital = None
 
 
-def co(a):  # это тестовые функции, нужны, чтобы определить какую функцию куда импортировать
-    return str(a) + 'hello'
+def co(text):  # это тестовые функции, нужны, чтобы определить какую функцию куда импортировать
+    codded = shc.shennon_fano_compression(str(text)).code
+    return codded
 
 
-def coco(b):
-    return str(b) + 'goodbye'
+def coco(code, code_number, code_symbol):
+    input_dictionary = dict(zip(code_number, code_symbol))
+    uncodded = shd.shennon_fano_decompression(code, input_dictionary)
+    return uncodded
 
 
 window = Tk()  # создаю окно
@@ -58,16 +63,17 @@ def compression():
     global compress
     out_text_tab1.configure(state='normal')
     out_text_tab1.delete('1.0', END)
-    compress = input_text_tab1.get('1.0', END)
+    compress = input_text_tab1.get('1.0', END)[0:-1]
     out_text_tab1.insert('1.0', co(compress))
     out_text_tab1.configure(state='disabled')
-    sentence = input_text_tab1.get(1.0, END)
-    data = list(sentence)
+    #sentence = input_text_tab1.get(1.0, END)
+    data = zip(shc.shennon_fano_compression(compress).values,
+                   shc.shennon_fano_compression(compress).keys)
     count = 0
     for record in table_tab1.get_children():
         table_tab1.delete(record)
     for record in data:
-        table_tab1.insert(parent='', index=END, text='', values=(record[0]))
+        table_tab1.insert(parent='', index=END, text='', values=(record))
         count += 1
 
 
@@ -123,8 +129,9 @@ def decompression():
     de_word = (text_widget_1.get(1.0, END)).split()
     de_digital = text_widget_2.get(1.0, END).split()
 
-    out_text_tab2.insert('1.0', coco(decompress))
+    out_text_tab2.insert('1.0', coco(decompress, de_digital, de_word))
     out_text_tab2.configure(state='disabled')
+
     # print(de_word)
     # print(de_digital)
 
