@@ -3,6 +3,8 @@ from tkinter.scrolledtext import ScrolledText
 from tkinter.ttk import Notebook, Treeview
 from tkinter.messagebox import showinfo
 import os
+import shennonFanoCompression as shc
+from shennonFanoAlgoritm import Compressed
 
 compress = None
 decompress = None
@@ -10,12 +12,13 @@ de_word = None
 de_digital = None
 
 
-def co(a):  # это тестовые функции, нужны, чтобы определить какую функцию куда импортировать
-    return str(a) + 'hello'
+def co(aaaa):  # это тестовые функции, нужны, чтобы определить какую функцию куда импортировать
+    codded = shc.shennon_fano_compression(str(aaaa)).code
+    return codded
 
 
-def coco(b):
-    return str(b) + 'goodbye'
+def coco(bbbb):
+    return str(bbbb) + 'goodbye'
 
 
 window = Tk()  # создаю окно
@@ -58,17 +61,30 @@ def compression():
     global compress
     out_text_tab1.configure(state='normal')
     out_text_tab1.delete('1.0', END)
-    compress = input_text_tab1.get('1.0', END)
+    compress = input_text_tab1.get('1.0', END)[0:-1]
     out_text_tab1.insert('1.0', co(compress))
     out_text_tab1.configure(state='disabled')
     sentence = input_text_tab1.get(1.0, END)
-    data = list(sentence)
-    count = 0
     for record in table_tab1.get_children():
         table_tab1.delete(record)
-    for record in data:
-        table_tab1.insert(parent='', index=END, text='', values=(record[0]))
-        count += 1
+    cleaner = set()
+    for letters in compress:
+        cleaner.add(letters)
+    print(cleaner)
+    if len(cleaner) == 1:
+        record = (list(cleaner)[0], "0")
+        table_tab1.insert(parent='', index=END, text='', values=(record))
+
+    else:
+
+        data = zip(shc.shennon_fano_compression(compress).values,
+                   shc.shennon_fano_compression(compress).keys)
+        count = 0
+
+        for record in data:
+            print(record)
+            table_tab1.insert(parent='', index=END, text='', values=(record))
+            count += 1
 
 
 dialog_button_tab1 = Button(tab1, text='Закодировать', font=('Arial', 18), command=compression)  # создаем кнопку
