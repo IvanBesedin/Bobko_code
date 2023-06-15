@@ -12,10 +12,12 @@ translations = {
     "испанский": {"Привет": "Hola", "Как дела?": "Cómo estás?", "Пока": "Hasta luego"}
 }
 
+
 # Функция для переключения языков
 def switch_language(lang):
     for key, value in translations[lang].items():
         labels[key].config(text=value)
+
 
 # Создание изображений и кнопок выбора языка
 russian_img = PhotoImage(file="ru.jpeg")
@@ -35,8 +37,8 @@ labels = {}
 for key, value in translations['русский'].items():
     labels[key] = Label(root, text=value)
     labels[key].pack()
-russian_img()
-english_img()
-spanish_img()
+# russian_img()
+# english_img()
+# spanish_img()
 
 root.mainloop()
