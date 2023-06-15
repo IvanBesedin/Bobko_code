@@ -161,7 +161,7 @@ text_widget_2.place(x=750, y=yg)  # размещение правого текс
 
 # работа с картинками и переводом
 note_tab1_leng = ['Кодирование', 'coding', 'codificación']
-rus_image_start = PhotoImage(file=r'{}'.format(os.path.abspath("75_pixels.png")))
+rus_image_start = PhotoImage(file=r'{}'.format(os.path.abspath("флаг_России.png")))
 rus_image = rus_image_start.subsample(x=2, y=2)
 
 ang_image_start = PhotoImage(file=r'{}'.format(os.path.abspath("Английский флаг.png")))
