@@ -2,8 +2,12 @@ from tkinter import *
 from tkinter.scrolledtext import ScrolledText
 from tkinter.ttk import Notebook, Treeview
 from tkinter.messagebox import showinfo
+import os
 
 compress = None
+decompress = None
+de_word = None
+de_digital = None
 
 
 def co(a):  # это тестовые функции, нужны, чтобы определить какую функцию куда импортировать
@@ -26,7 +30,6 @@ notebook = Notebook(main_frame)
 tab1 = Frame(notebook)  # это первая вкладка для закодирования
 tab2 = Frame(notebook)  # это вторая вкладка для декодирования
 
-quest_mark = PhotoImage(file=r'30_pixels.png')
 notebook.add(tab1, text='Кодирование')
 notebook.add(tab2, text='Декодирование')
 dialog_tab1 = Label(tab1, text=b, font=('Arial', 18))  # диалоговый текст обращения к пользователю в первой вкладке
@@ -85,9 +88,6 @@ def open_help():
 
 xge = 1170
 yge = 300
-help_button_tab1 = Button(tab1, text="Справка", command=open_help, font=('Arial', 18))
-# help_button_tab1.place(x=xge, y=yge)
-help_button_tab1.grid(row=1, column=1)
 
 table_tab1 = Treeview(tab1, columns=('first', 'second'), show='headings')
 table_tab1.heading('first', text='Буквы')
@@ -132,9 +132,6 @@ def decompression():
 dialog_button_tab2 = Button(tab2, text='Раскодировать', font=('Arial', 18), command=decompression)
 dialog_button_tab2.place(x=650, y=65 + plus)
 
-help_button_tab2 = Button(tab2, text="Справка", command=open_help, font=('Arial', 18))
-# help_button_tab2.place(x=xge, y=yge)  # перемещение кнопки
-help_button_tab2.grid(row=1, column=1)
 
 # дальше идет не совсем мой код
 
@@ -161,6 +158,60 @@ text_widget_2 = Text(tab2, width=10, height=20, yscrollcommand=scrollbar.set, fo
 text_widget_2.bind_class("Text", '<MouseWheel>', mousewheel)
 text_widget_2.place(x=750, y=yg)  # размещение правого текста
 # вернулись к моему
+
+# работа с картинками и переводом
+note_tab1_leng = ['Кодирование', 'coding', 'codificación']
+rus_image_start = PhotoImage(file=r'{}'.format(os.path.abspath("флаг_России.png")))
+rus_image = rus_image_start.subsample(x=2, y=2)
+
+ang_image_start = PhotoImage(file=r'{}'.format(os.path.abspath("Английский флаг.png")))
+ang_image = ang_image_start.subsample(x=2, y=2)
+
+spa_image_start = PhotoImage(file=r'{}'.format(os.path.abspath("Испанский флаг.png")))
+spa_image = spa_image_start.subsample(x=2, y=2)
+
+
+
+def configurassions(x):
+    notebook.tab(tab1, text=note_tab1_leng[x])
+
+
+def leng_rus():
+    global a
+    a = 0
+    configurassions(a)
+
+
+def leng_ang():
+    global a
+    a = 1
+    configurassions(a)
+
+
+def leng_spa():
+    global a
+    a = 2
+    configurassions(a)
+
+
+button_rus_tab1 = Button(tab1, image=rus_image, command=leng_rus)  # создаем кнопку
+button_rus_tab1.grid(row=1, column=2)
+
+button_ang_tab1 = Button(tab1, image=ang_image, command=leng_ang)  # создаем кнопку
+button_ang_tab1.grid(row=1, column=3)
+
+button_spa_tab1 = Button(tab1, image=spa_image, command=leng_spa)  # создаем кнопку
+button_spa_tab1.grid(row=1, column=4)
+
+quest_mark_start = PhotoImage(file=r'{}'.format(os.path.abspath("информационная иконка тёмная.png")))  # картинка вопроса
+quest_mark = quest_mark_start.subsample(x=2, y=2)
+help_button_tab2 = Button(tab2, image=quest_mark, command=open_help, font=('Arial', 18))
+# help_button_tab2.place(x=xge, y=yge)  # перемещение кнопки
+help_button_tab2.grid(row=1, column=1)
+
+help_button_tab1 = Button(tab1, image=quest_mark, command=open_help, font=('Arial', 18))
+# help_button_tab1.place(x=xge, y=yge)
+help_button_tab1.grid(row=1, column=1)  # размещение кнопки справка
 
 notebook.pack(expand=1, fill=BOTH, side=TOP)
 main_frame.pack(side=LEFT, padx=25, ipady=340)

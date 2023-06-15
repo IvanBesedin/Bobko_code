@@ -1,7 +1,7 @@
 from shennonFanoCompression import shennon_fano_compression
-from text_read import read
+from shennonFanoAlgoritm import Compressed
 
-result = shennon_fano_compression()
+result = Compressed()
 x = result.dictionary
 lengths = []  # List to save lenghts
 
@@ -13,7 +13,7 @@ for key in x:
 
 
 def mayor(lista): # Determine max value
-    max=lista[0];
+    max=lista[0]
     for x in lista:
         if x > max:
             max = x
