@@ -2,7 +2,6 @@ from tkinter import *
 from tkinter.scrolledtext import ScrolledText
 from tkinter.ttk import Notebook, Treeview
 from tkinter.messagebox import showinfo
-import os
 
 compress = None
 decompress = None
@@ -161,13 +160,13 @@ text_widget_2.place(x=750, y=yg)  # размещение правого текс
 
 # работа с картинками и переводом
 note_tab1_leng = ['Кодирование', 'coding', 'codificación']
-rus_image_start = PhotoImage(file=r'{}'.format(os.path.abspath("75_pixels.png")))
+rus_image_start = PhotoImage(file=r'C:\Users\Zero\PycharmProjects\Bobko_code\buttons\флаг_России.png')
 rus_image = rus_image_start.subsample(x=2, y=2)
 
-ang_image_start = PhotoImage(file=r'{}'.format(os.path.abspath("Английский флаг.png")))
+ang_image_start = PhotoImage(file=r'C:\Users\Zero\PycharmProjects\Bobko_code\buttons\Английский флаг.png')
 ang_image = ang_image_start.subsample(x=2, y=2)
 
-spa_image_start = PhotoImage(file=r'{}'.format(os.path.abspath("Испанский флаг.png")))
+spa_image_start = PhotoImage(file=r'C:\Users\Zero\PycharmProjects\Bobko_code\buttons\Испанский флаг.png')
 spa_image = spa_image_start.subsample(x=2, y=2)
 
 
@@ -203,7 +202,7 @@ button_ang_tab1.grid(row=1, column=3)
 button_spa_tab1 = Button(tab1, image=spa_image, command=leng_spa)  # создаем кнопку
 button_spa_tab1.grid(row=1, column=4)
 
-quest_mark_start = PhotoImage(file=r'{}'.format(os.path.abspath("информационная иконка тёмная.png")))  # картинка вопроса
+quest_mark_start = PhotoImage(file=r"C:\Users\Zero\PycharmProjects\Bobko_code\buttons\информационная иконка тёмная.png")  # картинка вопроса
 quest_mark = quest_mark_start.subsample(x=2, y=2)
 help_button_tab2 = Button(tab2, image=quest_mark, command=open_help, font=('Arial', 18))
 # help_button_tab2.place(x=xge, y=yge)  # перемещение кнопки
