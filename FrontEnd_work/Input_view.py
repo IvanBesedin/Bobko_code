@@ -10,6 +10,7 @@ compress = None
 decompress = None
 de_word = None
 de_digital = None
+a = 0
 
 
 def co(text):  # это тестовые функции, нужны, чтобы определить какую функцию куда импортировать
@@ -27,7 +28,6 @@ window = Tk()  # создаю окно
 window.state('zoomed')  # функция полного экрана
 window.title('Принцип Шинона-Фано')
 
-a = 'Введите текст для раскодирования'
 b = 'Введите текст для кодирования'
 
 main_frame = Frame(window)  # создаю рамку
@@ -44,9 +44,12 @@ input_text_tab1 = ScrolledText(tab1, width=40, height=4, fg='blue',
                                font=('Arial', 18))  # пользователь в первой вкладке вводит сюда свой текст
 input_text_tab1.grid(row=3, column=1)
 
-out_text_tab1 = ScrolledText(tab1, font=('Arial', 18), width=40,
-                             height=4)  # в первой вкладке пользователь получит результат в этом окне
-out_text_tab1.grid(row=3, column=6)
+out_text_tab1 = ScrolledText(tab1, font=('Arial', 18), width=36,
+                     height=4)  # в первой вкладке пользователь получит результат в этом окне
+out_text_tab1.grid(row=3, column=5)
+plus = 47
+# out_text_tab1.place(x=943, y=33 + plus)
+# out_tab1_scroll.place(x=980, y=180, width=525)
 out_text_tab1.configure(state='disabled')  # отключаем, чтобы невозможно было ей пользоваться
 
 
@@ -82,35 +85,51 @@ dialog_button_tab1.grid(row=3, column=3)
 
 
 def open_help():
-    text = "Метод Шеннона-Фано – это алгоритм сжатия данных, который основывается " \
+    if a == 0:
+        text = "Метод Шеннона-Фано – это алгоритм сжатия данных, который основывается " \
            "на распределении частоты встречаемости символов в сообщении. Алгоритм Шеннона-Фано разделяет " \
            "символы на две части, соответственно их частоте встречаемости, и далее рекурсивно продолжает " \
            "деление на подгруппы до тех пор, пока не будет получен код для каждого символа в сообщении. " \
            "Код Шеннона-Фано получается из частоты встречаемости символов, которая используется для " \
            "определения места символов в двоичном дереве. В конечном итоге, более часто встречающиеся " \
            "символы имеют более короткие коды, что является причиной сжатия сообщения."
+    elif a == 1:
+        text = 'английский'
+    elif a == 2:
+        text = 'испанский'
+    else:
+        text = "Ты как прогу сломал?"
     showinfo(title="Справка", message=text)
 
 
 xge = 1170
 yge = 300
-
+widh = 180
 table_tab1 = Treeview(tab1, columns=('first', 'second'), show='headings')
 table_tab1.heading('first', text='Буквы')
 table_tab1.heading('second', text='Символы')
+table_tab1.column("first", width=widh)
+table_tab1.column("second", width=widh)
+
 table_tab1.grid(row=10, column=3)
 
 # создаем все элементы во второй вкладке
-dialog_tab2 = Label(tab2, text=a, font=('Arial', 18))  # Это вывод текста для пользователя
+dialog_tab2 = Label(tab2, text='Введите текст для раскодирования',
+                    font=('Arial', 18))  # Это вывод текста для пользователя
 dialog_tab2.grid(row=2, column=1)
 
 input_text_tab2 = ScrolledText(tab2, width=40, height=4, fg='blue', font=('Arial', 18))
 input_text_tab2.grid(row=3, column=1)
 
-plus = 47
-out_text_tab2 = ScrolledText(tab2, font=('Arial', 18), width=40, height=4)
-out_text_tab2.place(x=943, y=33 + plus)  # разместил второй вывод по координатам
+plus = 43
+# out_tab2_scroll = Scrollbar(tab2, orient=HORIZONTAL)
+
+out_text_tab2 = ScrolledText(tab2, font=('Arial', 18), width=36, height=4)
+out_text_tab2.place(x=989, y=33 + plus)  # разместил второй вывод по координатам
 out_text_tab2.configure(state='disabled')
+# out_tab2_scroll.place(x=939, y=180, width=525)
+
+
 
 
 def decompression():
@@ -135,7 +154,7 @@ def decompression():
 
 
 dialog_button_tab2 = Button(tab2, text='Раскодировать', font=('Arial', 18), command=decompression)
-dialog_button_tab2.place(x=650, y=65 + plus)
+dialog_button_tab2.place(x=675, y=65 + plus)
 
 
 # дальше идет не совсем мой код
@@ -151,17 +170,16 @@ def yview(*args):
 
 
 yg = 200 + plus
-
 scrollbar = Scrollbar(tab2, orient=VERTICAL, command=yview)
-scrollbar.place(x=850, y=yg, height=340)  # размещение строки прокрутки
+scrollbar.place(x=875, y=yg, height=340)  # размещение строки прокрутки
 
 text_widget_1 = Text(tab2, width=10, height=20, yscrollcommand=scrollbar.set, font=('Arial', 11))
 text_widget_1.bind_class("Text", '<MouseWheel>', mousewheel)
 
-text_widget_1.place(x=650, y=yg)  # левый текст
+text_widget_1.place(x=675, y=yg)  # левый текст
 text_widget_2 = Text(tab2, width=10, height=20, yscrollcommand=scrollbar.set, font=('Arial', 11))
 text_widget_2.bind_class("Text", '<MouseWheel>', mousewheel)
-text_widget_2.place(x=750, y=yg)  # размещение правого текста
+text_widget_2.place(x=775, y=yg)  # размещение правого текста
 # вернулись к моему
 
 # работа с картинками и переводом
@@ -199,23 +217,27 @@ def leng_spa():
     configurassions(a)
 
 
-button_rus_tab1 = Button(tab1, image=rus_image, command=leng_rus)  # создаем кнопку
+button_rus_tab1 = Button(tab1, image=rus_image, command=leng_rus)  # создаем кнопку русского в 1
 button_rus_tab1.grid(row=1, column=2)
+button_rus_tab2 = Button(tab2, image=rus_image, command=leng_rus)  # создаем кнопку русского в 2
+button_rus_tab2.grid(row=1, column=2)
 
-button_ang_tab1 = Button(tab1, image=ang_image, command=leng_ang)  # создаем кнопку
+button_ang_tab1 = Button(tab1, image=ang_image, command=leng_ang)  # создаем кнопку английского в 1
 button_ang_tab1.grid(row=1, column=3)
+button_ang_tab2 = Button(tab2, image=ang_image, command=leng_ang)  # создаем кнопку английского в 2
+button_ang_tab2.place(x=743, y=0)
 
-button_spa_tab1 = Button(tab1, image=spa_image, command=leng_spa)  # создаем кнопку
+button_spa_tab1 = Button(tab1, image=spa_image, command=leng_spa)  # создаем кнопку испанского в 1
 button_spa_tab1.grid(row=1, column=4)
+button_spa_tab2 = Button(tab2, image=spa_image, command=leng_spa)  # создаем кнопку испанского в 2
+button_spa_tab2.place(x=946, y=0)
 
 quest_mark_start = PhotoImage(file=r'{}'.format(os.path.abspath("информационная иконка тёмная.png")))  # картинка вопроса
 quest_mark = quest_mark_start.subsample(x=2, y=2)
 help_button_tab2 = Button(tab2, image=quest_mark, command=open_help, font=('Arial', 18))
-# help_button_tab2.place(x=xge, y=yge)  # перемещение кнопки
 help_button_tab2.grid(row=1, column=1)
 
 help_button_tab1 = Button(tab1, image=quest_mark, command=open_help, font=('Arial', 18))
-# help_button_tab1.place(x=xge, y=yge)
 help_button_tab1.grid(row=1, column=1)  # размещение кнопки справка
 
 notebook.pack(expand=1, fill=BOTH, side=TOP)
