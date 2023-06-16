@@ -94,9 +94,24 @@ def open_help():
            "определения места символов в двоичном дереве. В конечном итоге, более часто встречающиеся " \
            "символы имеют более короткие коды, что является причиной сжатия сообщения."
     elif a == 1:
-        text = 'английский'
+        text = "The Shannon-Fano method is an algorithm used to compress data that allows to obtain " \
+               "the frequency distribution or repetition of characters found in a written message." \
+               "The algorithm is divided into 2 parts, these 2 parts are divided by frequency (repetition) " \
+               "of occurrence and continue to be divided into subgroups until the code of each character " \
+               "found in the message is received. The Shannon-Fano code is based on the frequency (repetition)" \
+               "of these characters and their occurrence found in the message, from which a" \
+               "specific position in that binary tree is determined. The most common or recurring " \
+               "characters found in the message are represented with smaller codes."
+
     elif a == 2:
-        text = 'испанский'
+        text = 'El método Shannon-Fano es un algoritmo utilizado para comprimir datos que permite obtener ' \
+               'la distribución de frecuencia o repetición de caracteres encontrados en un mensaje escrito. ' \
+               'El algoritmo se divide en 2 partes, estas 2 partes se dividen por frecuencia (repetición) ' \
+               'de ocurrencia y continúan dividiéndose en subgrupos hasta que se recibe el código de cada ' \
+               'carácter encontrado en el mensaje. El código Shannon-Fano se basa en la frecuencia (repetición) ' \
+               'de estos caracteres y su ocurrencia, a partir de la cual se determina una posición específica ' \
+               'en ese árbol binario. Los caracteres más comunes o recurrentes que se encuentran ' \
+               'en el mensaje tienen códigos más pequeños.'
     else:
         text = "Ты как прогу сломал?"
     showinfo(title="Справка", message=text)
