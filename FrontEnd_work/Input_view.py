@@ -28,8 +28,6 @@ window = Tk()  # создаю окно
 window.state('zoomed')  # функция полного экрана
 window.title('Принцип Шинона-Фано')
 
-b = 'Введите текст для кодирования'
-
 main_frame = Frame(window)  # создаю рамку
 notebook = Notebook(main_frame)
 tab1 = Frame(notebook)  # это первая вкладка для закодирования
@@ -37,7 +35,8 @@ tab2 = Frame(notebook)  # это вторая вкладка для декоди
 
 notebook.add(tab1, text='Кодирование')
 notebook.add(tab2, text='Декодирование')
-dialog_tab1 = Label(tab1, text=b, font=('Arial', 18))  # диалоговый текст обращения к пользователю в первой вкладке
+dialog_tab1 = Label(tab1, text='Введите текст',
+                    font=('Arial', 18))  # диалоговый текст обращения к пользователю в первой вкладке
 dialog_tab1.grid(row=2, column=1)
 
 input_text_tab1 = ScrolledText(tab1, width=40, height=4, fg='blue',
@@ -45,7 +44,7 @@ input_text_tab1 = ScrolledText(tab1, width=40, height=4, fg='blue',
 input_text_tab1.grid(row=3, column=1)
 
 out_text_tab1 = ScrolledText(tab1, font=('Arial', 18), width=36,
-                     height=4)  # в первой вкладке пользователь получит результат в этом окне
+                             height=4)  # в первой вкладке пользователь получит результат в этом окне
 out_text_tab1.grid(row=3, column=5)
 plus = 47
 # out_text_tab1.place(x=943, y=33 + plus)
@@ -69,9 +68,9 @@ def compression():
     compress = input_text_tab1.get('1.0', END)[0:-1]
     out_text_tab1.insert('1.0', co(compress))
     out_text_tab1.configure(state='disabled')
-    #sentence = input_text_tab1.get(1.0, END)
+    # sentence = input_text_tab1.get(1.0, END)
     data = zip(shc.shennon_fano_compression(compress).values,
-                   shc.shennon_fano_compression(compress).keys)
+               shc.shennon_fano_compression(compress).keys)
     count = 0
     for record in table_tab1.get_children():
         table_tab1.delete(record)
@@ -87,12 +86,12 @@ dialog_button_tab1.grid(row=3, column=3)
 def open_help():
     if a == 0:
         text = "Метод Шеннона-Фано – это алгоритм сжатия данных, который основывается " \
-           "на распределении частоты встречаемости символов в сообщении. Алгоритм Шеннона-Фано разделяет " \
-           "символы на две части, соответственно их частоте встречаемости, и далее рекурсивно продолжает " \
-           "деление на подгруппы до тех пор, пока не будет получен код для каждого символа в сообщении. " \
-           "Код Шеннона-Фано получается из частоты встречаемости символов, которая используется для " \
-           "определения места символов в двоичном дереве. В конечном итоге, более часто встречающиеся " \
-           "символы имеют более короткие коды, что является причиной сжатия сообщения."
+               "на распределении частоты встречаемости символов в сообщении. Алгоритм Шеннона-Фано разделяет " \
+               "символы на две части, соответственно их частоте встречаемости, и далее рекурсивно продолжает " \
+               "деление на подгруппы до тех пор, пока не будет получен код для каждого символа в сообщении. " \
+               "Код Шеннона-Фано получается из частоты встречаемости символов, которая используется для " \
+               "определения места символов в двоичном дереве. В конечном итоге, более часто встречающиеся " \
+               "символы имеют более короткие коды, что является причиной сжатия сообщения."
     elif a == 1:
         text = "The Shannon-Fano method is an algorithm used to compress data that allows to obtain " \
                "the frequency distribution or repetition of characters found in a written message." \
@@ -129,7 +128,7 @@ table_tab1.column("second", width=widh)
 table_tab1.grid(row=10, column=3)
 
 # создаем все элементы во второй вкладке
-dialog_tab2 = Label(tab2, text='Введите текст для раскодирования',
+dialog_tab2 = Label(tab2, text='Введите бинарный код',
                     font=('Arial', 18))  # Это вывод текста для пользователя
 dialog_tab2.grid(row=2, column=1)
 
@@ -142,9 +141,9 @@ plus = 43
 out_text_tab2 = ScrolledText(tab2, font=('Arial', 18), width=36, height=4)
 out_text_tab2.place(x=989, y=33 + plus)  # разместил второй вывод по координатам
 out_text_tab2.configure(state='disabled')
+
+
 # out_tab2_scroll.place(x=939, y=180, width=525)
-
-
 
 
 def decompression():
@@ -167,9 +166,8 @@ def decompression():
     out_text_tab2.configure(state='disabled')
 
 
-
 dialog_button_tab2 = Button(tab2, text='Раскодировать', font=('Arial', 18), command=decompression)
-dialog_button_tab2.place(x=675, y=65 + plus)
+dialog_button_tab2.place(x=770, y=89 + plus, anchor=CENTER)
 
 
 # дальше идет не совсем мой код
@@ -198,7 +196,6 @@ text_widget_2.place(x=775, y=yg)  # размещение правого текс
 # вернулись к моему
 
 # работа с картинками и переводом
-note_tab1_leng = ['Кодирование', 'coding', 'codificación']
 rus_image_start = PhotoImage(file=r'{}'.format(os.path.abspath("флаг_России.png")))
 rus_image = rus_image_start.subsample(x=2, y=2)
 
@@ -208,12 +205,22 @@ ang_image = ang_image_start.subsample(x=2, y=2)
 spa_image_start = PhotoImage(file=r'{}'.format(os.path.abspath("Испанский флаг.png")))
 spa_image = spa_image_start.subsample(x=2, y=2)
 
-
-
+note_tab1_leng = ['Кодирование', 'Coding', 'Codificación']
+note_tab2_leng = ['Декодирование', 'Decoding', 'Decodificación']
+dialog_text = ['Введите текст', 'Introduce Text', 'Introducir Texto']
+dialog_text_tab2 = ['Введите бинарный код', 'Enter the binary code', 'Introducir codigo binario']
+text_button_codify = ['Закодировать', 'Codify', 'Codificar']
+text_button_decode = ['Раскодировать', 'Decrypt', 'Descifrar']
+# table_text_first = []
+#  теперь работа со сменой языка
 def configurassions(x):
     notebook.tab(tab1, text=note_tab1_leng[x])
-
-
+    notebook.tab(tab2, text=note_tab2_leng[x])
+    dialog_tab1.configure(text=dialog_text[x])
+    dialog_tab2.configure(text=dialog_text_tab2[x])
+    dialog_button_tab1.configure(text=text_button_codify[x])
+    dialog_button_tab2.configure(text=text_button_decode[x])
+    # table_tab1.configure('first', )
 def leng_rus():
     global a
     a = 0
@@ -247,7 +254,8 @@ button_spa_tab1.grid(row=1, column=4)
 button_spa_tab2 = Button(tab2, image=spa_image, command=leng_spa)  # создаем кнопку испанского в 2
 button_spa_tab2.place(x=946, y=0)
 
-quest_mark_start = PhotoImage(file=r'{}'.format(os.path.abspath("информационная иконка тёмная.png")))  # картинка вопроса
+quest_mark_start = PhotoImage(
+    file=r'{}'.format(os.path.abspath("информационная иконка тёмная.png")))  # картинка вопроса
 quest_mark = quest_mark_start.subsample(x=2, y=2)
 help_button_tab2 = Button(tab2, image=quest_mark, command=open_help, font=('Arial', 18))
 help_button_tab2.grid(row=1, column=1)
